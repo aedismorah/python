@@ -1,11 +1,11 @@
 A = [
     [1, 2, 3],#, 8],  # 0 0 = 1     0 1 = 2     0 2 = 3
     [4, 5, 6],#, 9], 
-    [7,8,9]#,17]#,  ## 1 0 = 4     1 1 = 5    1 1 = 6
+    [7, 8, 9]#,17]#,  ## 1 0 = 4     1 1 = 5    1 1 = 6
    # [7, 8, 9, ]  # 2 0 = 7    2 1 = 8   2 2 = 9
 ]
 
-b = [1, 1,1]#, 1]
+b = [1, 1, 1]#, 1]
 
 
 # 1 - умножение на чиселку
@@ -14,31 +14,23 @@ b = [1, 1,1]#, 1]
 # 1) и 3)
 # 4 - вывод на экран
 
-def umnozhit(Matrix, Free, str, number, n):
-    for j in range(n):
-        Matrix[str][j] = Matrix[str][j] * number
-    Free[str] = Free[str] * number
+def umnozhit(Matrix, Free, str, number, n):#кстати, в питоне можно использовать русские слова в т.ч. как название функций. хотя я считаю, что стоит не полениться и погуглить, что умножение в англицком именуется multiplication и вообще, что есть какие-то стандарты языка типо pep 8
+    Matrix[str] = [Matrix[str][j] * number for j in range(n)]
+    Free[str] *= number
 
 
 def perestanovka(Matrix, Free, str1, str2):
-    s = Matrix[str1]
-    Matrix[str1] = Matrix[str2]
-    Matrix[str2] = s
-    t = Free[str1]
-    Free[str1] = Free[str2]
-    Free[str2] = t
-
+    Matrix[str1], Matrix[str2] = (Matrix[str2], Matrix[str1])
+    Free[str1], Free[str2] = (Free[str2], Free[str1])
 
 def slozhenie(Matrix, Free, str1, str2, n):
-    for j in range(n):
-        Matrix[str1][j] = Matrix[str1][j] + Matrix[str2][j]
-    Free[str1] = Free[str1] + Free[str2]
+    Matrix[str1] = [Matrix[str1][j] + Matrix[str2][j] for j in range(n)]
+    Free[str1] += Free[str2]
 
 
-def sloz_umnoz(Matrix, Free, str1, str2, number, n):
-    for j in range(n):
-        Matrix[str1][j] = Matrix[str1][j] + number * Matrix[str2][j]
-    Free[str1] = Free[str1] + number * Free[str2]
+def sloz_umnoz(Matrix, Free, str1, str2, number, n):#странная функция имхо
+    Matrix[str1] = [Matrix[str1][j] + number * Matrix[str2][j] for j in range(n)]
+    Free[str1] += number * Free[str2]
 
 
 def printM(Matrix):
@@ -53,7 +45,7 @@ def printF(Free):
         print(Free[i], end=' ')
         print()
 
-
+#дальше мне было лень читать)
 def Gauss(Matrix, Free):
     str = 0
     while (str < len(Free)):
